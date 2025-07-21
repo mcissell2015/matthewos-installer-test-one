@@ -23,5 +23,5 @@ function add() {
   count++;
   document.getElementById('add').innerText = count + "% Installed";
 
-  setTimeout(add, 100); // Adjust timing as needed
+  setTimeout(add, 400); // Adjust timing as needed
 }
