@@ -4,17 +4,52 @@
   "imports": {}
 }</script></head><body>
 
-  
-    <title>Hello, World!</title>
-  
-  
-    <div id="hide" style="display: block;">
-      <h1>MatthewOS Installer</h1>
-      <button onclick="full();">Install MatthewOS</button>
-    </div>
-    <div id="show" style="display: none;">
-      <h1>MatthewOS Installer</h1>
-      <p id="add">0% Installed</p>
-    </div>
-  
+
+  <title>Installer</title>
+
+
+  <div id="hide">
+    <h1>MatthewOS Installer</h1>
+    <button onclick="full()">Start Installation</button>
+  </div>
+  <div id="show" style="display:none;">
+    <h1>MatthewOS Installer</h1>
+    <h3 id="add">0% Installed</h3>
+  </div>
+
+  <script>
+    let count = 0;
+
+    function full() {
+      // Request fullscreen
+      document.documentElement.requestFullscreen();
+
+      // Hide initial div and show progress
+      document.getElementById('hide').style.display = "none";
+      document.getElementById('show').style.display = "block";
+
+      // Start progress animation
+      add();
+
+      // Trigger Node.js filesystem creation via an API or Electron IPC
+      // For simplicity, assume you call a function here
+      // e.g., send a request to backend server to create files
+      fetch('/create-files')
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(err => console.error(err));
+    }
+
+    function add() {
+      if (count >= 100) {
+        count = 100;
+        document.getElementById('add').innerText = count + "% Installed";
+        return;
+      }
+      count++;
+      document.getElementById('add').innerText = count + "% Installed";
+      setTimeout(add, 400);
+    }
+  </script>
+
 <script src="./script.js"></script></body></html>
